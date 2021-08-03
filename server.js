@@ -1,100 +1,60 @@
 'use strict'
 
-const { request, response } = require("express");
 const express = require ("express"); // import express library using require
 const server =express();
-
 // import json file
 const weatherData = require('./data/weather.json');
-
-
-const PORT = 3001;
+require('dotenv').config(); // .env
+const cors = require('cors'); // cors
+server.use(cors());
+const PORT = process.env.PORT;
 
 // http://localhost:3001/ (/ === root route)
-server.get('/',(req,res) =>{ // we can call the req,res what ever we want, bs the server gonna take the first one as req, and the sec as response
-res.send('hi from the root route'); // cannot Get , we should npm start again
-
+server.get('/',(req,res) =>{ // we can call the req,res 
+res.send('hi from the root route'); 
 })
 
-// we'll (in server side) create a specific url to let the front end side connect with me (as a server on it) >>> we call this url >>> route >> we use get >> forward slash >> once u get that rout call the callback func
 
-// url? >> our local addres for my server ,,
-// http:localhost:3001/test (/test === route)
-server.get('/test',(request,response)=>{
-  let str = 'Hello from the server side'; // bde ab3t had ll fronEnd as a response
-  response.send(str); // btl3le l respone 3l browser
+// http://localhost:3001/weather?lat=31.9515694&lon=35.9239625&searchQuery=Amman (/weather === route)
+server.get('/weather',(req,res)=>{
+res.send(weatherData);
+console.log('heeeeeeey');
+const lat = Number(req.query.lat);
+const lon = Number(req.query.lon);
+console.log(lat);
+const city_name = req.query.searchQuery.toLocaleLowerCase();
 
-})
+console.log(lat,lon,city_name);
+const result = weatherData.find(item => item.lat === lat && item.lon === lon &&  item.city_name.toLocaleLowerCase() === city_name ? item : '');
 
-// hll2 bdna n3ml serve ll weather
-// http://localhost:3001/getWeatherInfo (/getWeatherInfo === route)
+result ? res.send(createForCastObje(result)) : res.send(creatErrorObj('Something went wrong.', 500));
 
-server.get('/getWeatherInfo',(req,res)=>{
-//console.log(weatherData);
+});
 
-// i want to get name, lat, lon, searchquery info
+const creatErrorObj = (errMsg, status) =>{
+  return {error: errMsg, status: status};
+};
 
-// let info= weatherData.map((item)=>{
-//     return (
-       
-//     item.city_name,
-//     item.lat
-       
-//     )
-//    // console.log(item.city_name);
-//  })
-//  res.send(info);
+const createForCastObje = (weatherObj) => {
+const forCastObjList =[];
+weatherObj.weatherData.map(item => {
+  const description =  `Low of ${item.low_temp}, high of ${item.high_temp} with ${item.weather.description}`;
+  const date =item.datetime;
+  forCastObjList.push(new ForCast(date, description));
+});
 
-let cityNames= weatherData.map((item)=>{
-   return item.city_name;
-  // console.log(item.city_name);
-})
-res.send(cityNames);
+return forCastObjList;
+};
 
-// let lat= weatherData.map((item)=>{
-//     return item.lat;
-//  })
-//  res.send(lat);
-
-//  let lon= weatherData.map((item)=>{
-//     return item.lon;
-//  })
-//  res.send(lon);
-
-})
-
-// we have to put 500 status
-// const handleErrorsAny=()=>{
-//    // if(req===)
-// res.status(500).send(weatherData);
-// };
-// handleErrorsAny();
+class ForCast {
+constructor(date='', description=''){
+  this.date=date;
+  this.description= description;
+}
+}
 
 
-// another route with params
-// http://localhost:3001/getWeather?date=valid_date&desc=description (/getWeather===route)
-server.get('/getWeather',(req,res) =>{
-// console.log(req.query); // (req.query()) >> object contain all of the data attached after ? (params)
-
-const  date= req.query.valid_date;
-const desc= req.query.description;
-
-// ill use .find() in order to find specific date and desc in my array
-
-let weatherItem= weatherData.data.find(item =>{
-    // if (item.date == valid_date && item.desc == description){
-    //     return item;
-    // }
-    if (item.desc == 'description')
-    return item;
-})
-// console.log(weatherItem);
-res.send(weatherItem);
-// res.send(weatherItem.description);
-
-})
-
-// after we finish serves our routes , we have to serve the rest of the routes (universe route) ,,,, and put not found >>> any other routes iza ma l2ahm >> not found // lazm a5r she a7t.ha ,3shan ma tn3ml abl l routes ele 3nde
+// any other routes
 server.get('*', (req,res)=> {
     res.status(404).send('page not found');
 })
@@ -102,7 +62,6 @@ server.get('*', (req,res)=> {
 
 // listen, in the end of our code
 server.listen(PORT,() =>{ // callback fun, when u listen to the port and got the request run this callback func
-
 console.log(`Im listning on PORT ${PORT}`);
 
 })
