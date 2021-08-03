@@ -1,12 +1,12 @@
 'use strict'
 
-const express = require ("express"); // import express library using require
+const express = require ("express"); // import express library using require // npm i express
 const server =express();
 // import json file
 const weatherData = require('./data/weather.json');
-require('dotenv').config(); // .env
-const cors = require('cors'); // cors
-server.use(cors());
+require('dotenv').config(); // .env // npm i dotenv
+const cors = require('cors'); // cors // npm i cors
+server.use(cors()); // the server can take any req from any client
 const PORT = process.env.PORT;
 
 // http://localhost:3001/ (/ === root route)
@@ -40,13 +40,13 @@ const forCastObjList =[];
 weatherObj.weatherData.map(item => {
   const description =  `Low of ${item.low_temp}, high of ${item.high_temp} with ${item.weather.description}`;
   const date =item.datetime;
-  forCastObjList.push(new ForCast(date, description));
+  forCastObjList.push(new Forecast(date, description));
 });
 
 return forCastObjList;
 };
 
-class ForCast {
+class Forecast {
 constructor(date='', description=''){
   this.date=date;
   this.description= description;
