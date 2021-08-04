@@ -3,7 +3,7 @@
 const express = require ("express"); // import express library using require // npm i express
 const server =express();
 // import json file
-const weatherData = require('./data/weather.json');
+const weatherData = require('./data/weather.json'); // import json file
 require('dotenv').config(); // .env // npm i dotenv
 const cors = require('cors'); // cors // npm i cors
 server.use(cors()); // the server can take any req from any client
@@ -36,20 +36,19 @@ console.log(lat,lon,cityName);
 
 const weatherResult = weatherData.find((item) => {
 
-  if (((lat === item.lat) || (lon === item.lon)) || (cityName === item.city_name)) {
+  if (((lat === item.lat) && (lon === item.lon)) && (cityName === item.city_name.toLocaleLowerCase())) {
 
       return item;
   }
   else {
-
       return '';
   }
 
 })
 
-console.log(weatherResult);
-// let myData= createForCastObje(weatherData);
-// console.log(myData);
+//console.log(weatherResult);
+let myData= createForCastObje(weatherResult);
+res.send(myData);
 
 });
 
