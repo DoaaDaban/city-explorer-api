@@ -83,7 +83,6 @@ constructor(date='', description=''){
 }
 }
 
-
 // any other routes
 server.get('*', (req,res)=> {
     res.status(404).send('page not found');
