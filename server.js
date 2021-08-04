@@ -32,11 +32,11 @@ console.log(lat,lon,cityName);
 // weatherResult  ? res.send(createForCastObje(weatherResult )) : res.send(creatErrorObj('Something went wrong.', 500));
 
 // second sol
-// console.log(weatherData);
+ console.log(weatherData);
 
 const weatherResult = weatherData.find((item) => {
 
-  if (((lat === item.lat) && (lon === item.lon)) && (cityName === item.city_name.toLocaleLowerCase())) {
+  if (((lat === item.lat) || (lon === item.lon)) && (cityName === item.city_name.toLocaleLowerCase())) {
 
       return item;
   }
@@ -58,6 +58,8 @@ res.send(myData);
 //   return {error: errMsg, status: status};
 // };
 
+
+
 const createForCastObje = (weatherObj) => {
 
 const forCastObjArr =[];
@@ -65,6 +67,7 @@ const forCastObjArr =[];
 //weatherData >> weatherData not defined
 // data >> correct
 weatherObj.data.map(item => {
+
   const description =  `Low of ${item.low_temp}, high of ${item.high_temp} with ${item.weather.description}`;
 
   const date =item.datetime;
