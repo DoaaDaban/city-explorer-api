@@ -26,7 +26,7 @@ async function getWeatherHandler(req, res) {
     const lat = req.query.lat
 
     //${process.env.API_KEY}
-    const URL = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&lat=${lat}&lon=${lon}&key=1d6da6b9e31745839be632003e29d9e8`;
+    const URL = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&lat=${lat}&lon=${lon}&key=${process.env.WEATHER_API_KEY}`;
 
 
     axios
@@ -69,7 +69,7 @@ function getMovieHandler(req, res) {
     const city = req.query.city
 
     //https://api.themoviedb.org/3/search/movie?api_key=6680ffabd529834b6beac25752cbb0ad&query=amman
-    const URLMovie = `https://api.themoviedb.org/3/search/movie?api_key=6680ffabd529834b6beac25752cbb0ad&query=${city}`
+    const URLMovie = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${city}`
 
     axios
         .get(URLMovie)
