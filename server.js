@@ -32,11 +32,14 @@ console.log(lat,lon,cityName);
 // weatherResult  ? res.send(createForCastObje(weatherResult )) : res.send(creatErrorObj('Something went wrong.', 500));
 
 // second sol
- console.log(weatherData);
+
+console.log('hellooo' + weatherData);
 
 const weatherResult = weatherData.find((item) => {
 
-  if (((lat === item.lat) || (lon === item.lon)) && (cityName === item.city_name.toLocaleLowerCase())) {
+  console.log(item.lat, lat, item.lon, lon)
+
+  if (((lat === item.lat) || (lon === item.lon)) || (cityName === item.city_name.toLowerCase())) {
 
       return item;
   }
@@ -46,7 +49,6 @@ const weatherResult = weatherData.find((item) => {
 
 })
 
-//console.log(weatherResult);
 let myData= createForCastObje(weatherResult);
 res.send(myData);
 
