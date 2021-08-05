@@ -123,6 +123,8 @@ class Movies { // movie class
 
 //========================lab7=====================
 
+http://localhost:3001/weather?lat=31.9515694&lon=35.9239625&searchQuery=Amman&1d6da6b9e31745839be632003e29d9e8
+
 // // http://localhost:3001/weather?lat=31.9515694&lon=35.9239625&searchQuery=Amman (/weather === route)
 // server.get('/weather',(req,res)=>{
 // //res.send(weatherData);
