@@ -26,14 +26,14 @@ async function getWeatherHandler(req, res) {
     const lat = req.query.lat
 
     //${process.env.API_KEY}
-    const URL = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&lat=${lat}&lon=${lon}&key=${process.env.WEATHER_API_KEY}`;
+    const URL =`https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&lat=${lat}&lon=${lon}&key=${process.env.WEATHER_API_KEY}`;
 
 
     axios
         .get(URL)
         .then(result => {
             console.log('inside promise');
-            let weatherArray = result.data
+            let weatherArray = result.data.data
             res.send(weatherForObject(weatherArray));
         })
         .catch(err => {
@@ -45,7 +45,7 @@ async function getWeatherHandler(req, res) {
 const weatherForObject = (weatherObj) => {
 
     const forCastObj = [];
-    weatherObj.data.map(element => {
+    weatherObj.map(element => {
 
         const description = `Low of ${element.low_temp} ,High of ${element.max_temp} with ${element.weather.description}`;
         const date = element.datetime;
