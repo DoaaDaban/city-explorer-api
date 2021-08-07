@@ -15,7 +15,7 @@ server.get('/',(req,res) =>{ // we can call the req,res
 res.send('hi from the root route'); 
 })
 
-//======================lab8======================
+//=============================================lab8==========================================================
 
 //http:localhost:3001/getWeather?lat=31.95&lon=35.91&searchQuery=Amman
 server.get('/getWeather', getWeatherHandler);
@@ -120,80 +120,6 @@ class Movies { // movie class
     }
 }
 
-
-//========================lab7=====================
-
-http://localhost:3001/weather?lat=31.9515694&lon=35.9239625&searchQuery=Amman&1d6da6b9e31745839be632003e29d9e8
-
-// // http://localhost:3001/weather?lat=31.9515694&lon=35.9239625&searchQuery=Amman (/weather === route)
-// server.get('/weather',(req,res)=>{
-// //res.send(weatherData);
-// //console.log('heeeeeeey');
-// const lat = Number(req.query.lat);
-// const lon = Number(req.query.lon);
-// //console.log(lat);
-// const cityName  = req.query.searchQuery.toLocaleLowerCase();
-
-// console.log(lat,lon,cityName);
-
-// // first solution
-// // const weatherResult  = weatherData.find(item => item.lat === lat && item.lon === lon &&  item.cityName .toLocaleLowerCase() === cityName  ? item : '');
-
-// // weatherResult  ? res.send(createForCastObje(weatherResult )) : res.send(creatErrorObj('Something went wrong.', 500));
-
-// // second sol
-// // console.log(weatherData);
-
-// const weatherResult = weatherData.find((item) => {
-
-//   if (((lat === item.lat) && (lon === item.lon)) && (cityName === item.city_name.toLocaleLowerCase())) {
-
-//       return item;
-//   }
-//   else {
-//       return '';
-//   }
-
-// })
-
-
-
-// //console.log(weatherResult);
-// let myData= createForCastObje(weatherResult);
-// res.send(myData);
-
-// });
-
-
-
-// // const creatErrorObj = (errMsg, status) =>{
-// //   return {error: errMsg, status: status};
-// // };
-
-// const createForCastObje = (weatherObj) => {
-
-// const forCastObjArr =[];
-
-// //weatherData >> weatherData not defined
-// // data >> correct
-// weatherObj.data.map(item => {
-//   const description =  `Low of ${item.low_temp}, high of ${item.high_temp} with ${item.weather.description}`;
-
-//   const date =item.datetime;
-
-//   forCastObjArr.push(new Forecast(date, description));
-// });
-
-// return forCastObjArr;
-// };
-
-
-// class Forecast {
-// constructor(date='', description=''){
-//   this.date=date;
-//   this.description= description;
-// }
-// }
 
 
 // any other routes
