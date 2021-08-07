@@ -14,6 +14,7 @@ const Weather = require('./Weather');
 const MoviesComp = require('./MoviesComp');
 
 
+
 // http://localhost:3001/ (/ === root route)
 server.get('/',(req,res) =>{ // we can call the req,res 
 res.send('hi from the root route'); 

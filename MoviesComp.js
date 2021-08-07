@@ -3,10 +3,17 @@
 const axios = require('axios');
 const MoviesComp ={};
 
+let myMemory = {};
 
 MoviesComp.getMovieHandler= function(req, res) {
     const city = req.query.city
 
+    if (myMemory[city] !== undefined) {
+
+        res.send(myMemory[city]);
+      }
+
+      else{
     //https://api.themoviedb.org/3/search/movie?api_key=6680ffabd529834b6beac25752cbb0ad&query=amman
     const URLMovie = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${city}`
 
@@ -45,7 +52,7 @@ MoviesComp.moviesForObject = (moviesObj) => {
     });
     return forMoviesObj;
 }
-
+}
 
 class Movies { // movie class
     constructor(title,overview,vote_average,vote_count,poster_path,popularity,release_date) {

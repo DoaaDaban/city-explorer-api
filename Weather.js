@@ -3,11 +3,21 @@
 const axios = require ('axios');
 const Weather={};
 
+let myMemory = {};
+
 Weather.getWeatherHandler = function (req, res) {
     const city = req.query.searchQuery
     const lon = req.query.lon
     const lat = req.query.lat
 
+
+    if (myMemory[city,lon,lat] !== undefined) {
+
+        res.send(myMemory[city,lon,lat]);
+      }
+
+
+      else{
     //${process.env.API_KEY}
     const URL =`https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&lat=${lat}&lon=${lon}&key=${process.env.WEATHER_API_KEY}`;
 
@@ -24,7 +34,7 @@ Weather.getWeatherHandler = function (req, res) {
         })
     console.log('outside promise');
 }
-
+}
 Weather.weatherForObject = (weatherObj) => {
 
     const forCastObj = [];
