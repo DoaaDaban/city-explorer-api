@@ -10,10 +10,12 @@ MoviesComp.getMovieHandler= function(req, res) {
 
     if (myMemory[city] !== undefined) {
 
+        console.log('get the data from the Memory');
         res.send(myMemory[city]);
       }
 
       else{
+       console.log('get the data from the API');
     //https://api.themoviedb.org/3/search/movie?api_key=6680ffabd529834b6beac25752cbb0ad&query=amman
     const URLMovie = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${city}`
 
